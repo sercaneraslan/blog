@@ -1,0 +1,57 @@
+/*
+*
+* Homepage Styles
+*
+*/
+
+@import mixins
+
+.summary
+
+    article
+        alignment()
+        margin 40px auto
+        padding-bottom 35px
+        border-bottom 2px dashed #e3edf3
+
+        &:last-child
+            border-bottom none
+
+        h2
+            font-size 40px
+            margin-bottom 20px
+
+            a
+                color $green
+
+        p
+            font-size 20px
+            color $gray
+            line-height 27px
+            margin-bottom 25px
+
+        > a
+            display inline-block
+            background $green
+            font-size 14px
+            border-radius 5px
+            color $white
+            padding 10px 15px
+
+        span
+            display block
+            float right
+            color $gray
+            font-size 16px
+            padding-left 26px
+            margin-top 10px
+            position relative
+
+            &:before
+                content "\f017"
+                font-family FontAwesome
+                color $gray
+                font-size 20px
+                position absolute
+                top -2px
+                left 0

@@ -1,0 +1,23 @@
+{
+    "urls": [
+        "zamandan-tasarruf-ettiren-gorev-calistiricisi-grunt",
+        "sublime-texti-etkin-kullanma"
+    ],
+    "jshint": {
+        "unused": true,
+        "curly": true,
+        "boss": true,
+        "onevar": true,
+        "indent": 4,
+        "camelcase": true,
+        "latedef": true,
+        "quotmark": "single",
+        "trailing": true,
+        "evil": true,
+        "white": true,
+        "strict": true,
+        "globals": {
+            "console": true
+        }
+    }
+}

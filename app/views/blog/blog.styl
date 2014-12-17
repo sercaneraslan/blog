@@ -1,0 +1,107 @@
+/*
+*
+* Blog Styles
+*
+*/
+
+@import mixins
+
+.document-detail
+.disqus
+    alignment()
+
+.document-detail
+    margin 40px auto
+
+    h1
+    h2
+    h3
+        color $green
+
+    h1
+        font-size 40px
+        margin-bottom 20px
+
+    h2
+        font-size 30px
+        margin 35px 0
+
+    h3
+        font-size 20px
+        margin 35px 0
+
+    .time
+        display block
+        color $green
+        font-size 14px
+        padding-left 27px
+        margin 10px 0 40px 0
+        position relative
+
+        &:before
+            content "\f017"
+            font-family FontAwesome
+            color $green
+            font-size 17px
+            position absolute
+            top -2px
+            left 7px
+
+    img
+        display block
+        width 100%
+        margin 0 auto 50px auto
+        border-radius 5px
+
+    p
+
+        font-size 18px
+        color $gray
+        line-height 27px
+        margin-bottom 25px
+
+        strong
+            font-weight 700
+            color $strongGray
+
+    ul
+        margin 0 0 25px 45px
+
+    li
+        list-style-type disc
+        font-size 18px
+        color $gray
+        margin-bottom 10px
+        line-height 27px
+
+        strong
+            color $strongGray
+            font-weight 700
+
+    table
+        width 100%
+        border-collapse collapse
+        margin-bottom 30px
+
+    th
+        padding 10px
+        font-weight 500
+        vertical-align middle
+        color $strongGray
+        background $softGray
+        border-right 1px solid $dirtyWhite
+
+    th:first-child
+            border-radius 3px 0 0 0
+
+    th:last-child
+            border-radius 0 3px 0 0
+            border-right none
+
+    td
+        padding 10px
+        border 1px solid $dirtyWhite
+        color $gray
+
+.disqus
+    margin 20px auto
