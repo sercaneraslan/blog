@@ -5,7 +5,7 @@
 Sercan Eraslan Blog
 ===================
 
-<a href="http://sercaneraslan.com/blog">Personel Blog</a>.
+<a href="http://blog.sercaneraslan.com">Personel Blog</a>.
 
 Note: This Blog is using <a href="https://github.com/sercaneraslan/grabs">Grabs</a>
 
