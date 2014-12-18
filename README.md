@@ -1,5 +1,5 @@
 <a href="http://sercaneraslan.com/blog">
-![sercaneraslan](https://raw.githubusercontent.com/sercaneraslan/sercaneraslan.com/master/app/img/static/readme.png)
+![sercaneraslan](https://github.com/sercaneraslan/sercaneraslan.github.io/blob/creator/app/img/static/readme.png)
 </a>
 
 Sercan Eraslan Blog
