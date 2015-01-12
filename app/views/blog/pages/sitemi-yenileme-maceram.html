@@ -1,0 +1,76 @@
+<h1 ng-title>Sitemi Yenileme Maceram...</h1>
+
+<span class="time">12 Ocak 2015</span>
+
+<img alt="Iceberg" src="/img/static/posts/site/iceberg.png">
+
+
+<p>Herşey, sitemin çok eskidiğini, yenilenmeye ihtiyacı olduğunu düşündüğümde başladı. Site 2009'dan beri aynı altyapı ile çalışıyordu ve geliştirme yapmak zorlaşmaya başlamıştı.</p>
+
+<p>Hepimizin bildiği üzere biz geliştiriciler üşengeç insanlarız. Sürekli olarak sitelerimizi veya blog'larımızı yenileme ya da blog yazma işlerini erteler dururuz. Ben de birçok kez ertelemiş olmanın verdiği pişmanlıktan doğan gazla hazırlıklara başladım. Bu sefer azimliydim, ne olursa olsun bu siteyi yenileyecektim ve sonrasında kendime bir blog yazacaktım :)</p>
+
+<p>Nelere ihtiyacım olduğunu not ederek işe başladım. Öncelikle güzel bir geliştirme ortamına ihtiyacım vardı. Geliştirme ortamında ise aşağıdaki maddelere ihtiyacım vardı;</p>
+
+<ul>
+    <li><a href="http://gruntjs.com/">Grunt</a> kullanmaya niyetli olduğum için herşey Grunt ile uyumlu olmalıydı.</li>
+    <li><a href="https://www.angularjs.org/">Angular.js</a> kullanacağım için geliştirme ortamı Angular'a uyumlu olmalıydı.</li>
+    <li><a href="http://bower.io/">Bower</a> ile dışarı bağımlı olduğum kütüphaneleri yükleyebilmeliydim.</li>
+    <li><a href="http://learnboost.github.io/stylus/">Stylus</a> kullanacağım için Stylus dosyalarım CSS'e otomatik derlenebilmeliydi.</li>
+    <li>Sprite'lar otomatik olarak oluşturulmalıydı.</li>
+    <li>Geliştirme ortamı ve Canlı ortam farklı davranabilmeliydi.</li>
+    <li>Canlı ortamında JavaScript'ler, CSS'ler, görseller vb sıkıştırılabilmeliydi.</li>
+    <li>JavaScript kodlarım her değişiklikte kontrol edilmeliydi.</li>
+    <li>Sıkıştırılan dosyaların Cache'lenebilmesi gerekiyordu.</li>
+</ul>
+
+<p>vs.</p>
+
+<p>Listeyi baştan sona okuduktan sonra bu geliştirme ortamına sadece sitemi geliştirken değil blog yazarken de ihtiyacım olacağını farkettim. Sonra durup tekrar düşündüm ve hemen hemen her geliştiricinin bir siteyi hazırlarken böyle bir geliştirme ortamına ihtiyaç duyacağını farkettim.</p>
+
+<p>Sonra siteyi yenileme işini bırakıp geliştirme ortamı hazırlama işine ayrı bir repo/depo açarak hazırlıklara başladım. Kısa bir süre sonra geliştirme ortamımı yani <a href="http://grabs.in/">Grabs</a>'i tamamladım.</p>
+
+<h3>Grabs'i geliştirirken;</h3>
+
+<ul>
+    <li>Angular'daki küçük bir hatayı çözdüm ve çözüm <a href="http://angularjs.blogspot.com.tr/2014/10/angularjs-130-superluminal-nudge.html">Angular'ın 1.3.0</a> versiyonuna dahil edildi.</li>
+    <li>Birkaç projeye daha düzeltme gönderdim ve birkaç projeye de sorunlarla ilgili iş açtım.</li>
+    <li>Grunt'ı daha önce kullanmış olmama rağmen Grunt hakkında oldukça fazla bilgiye sahip oldum. Angular, <a href="http://nodejs.org/">Node.js</a> ve Bower'da aynı şekilde.</li>
+    <li>labs.sahibinden.com'da <a href="http://labs.sahibinden.com/yazi/grunt/">Zamandan Tasarruf Ettiren Görev Çalıştırıcısı, Grunt</a> isimli makaleyi yayımladım.</li>
+    <li>Grabs projesini açık kaynak olarak yayımladıktan sonra birkaç yabancı ve Türk geliştiriciyle tanıştım.</li>
+    <li>Yeoman'i öğrendim ve Grabs için <a href="https://github.com/sercaneraslan/generator-grabs">Yeoman Generator</a> hazırladım.</li>
+</ul>
+
+<p>Grabs'i geliştirme süreci benim için çok eğlenceli ve eğitici oldu, güzel tecrübeler edindim. Grabs tamamlandıktan sonra sitemi yenilemeye başladım.</p>
+
+<h3>Sitemi yenilerken;</h3>
+
+<ul>
+    <li>Dokümanlardaki örnek kodları highlight etmek için <a href="https://github.com/sercaneraslan/angular-prism-directive">Angular Prism Directive</a>'i hazırladım.</li>
+    <li>Dokümanlardaki örnek kodları göstermek için de <a href="https://github.com/sercaneraslan/angular-codepen-directive">Angular Codepen Directive</a>'i hazırladım.</li>
+    <li>Bütün dokümanları tek tek okuyarak yeniden düzenledim.</li>
+    <li>Sitemin kodlarını Github'ta barındıracağım için barındırmanın nasıl yapılacağını öğrendim. (Sonrasında bu konuyla ilgili bir makale yazmalıydım.)</li>
+    <li>Kodlar Github üzerinde barındığı için her bir URL'in klasör karşılığı olması gerekiyordu. Bu işi otomatik olarak yapan <a href="https://github.com/sercaneraslan/grunt-github-pages-foldering">Grunt Github Pages Foldering</a> isimli Grunt eklentisini hazırladım.</li>
+</ul>
+
+<p>Sitemi yeniledikten sonra gururlu bir şekilde blog'umu yazmaya başladım.</p>
+
+<h3>Blog'umu yazarken;</h3>
+
+<ul>
+    <li>Yazılara yorum yapılabilmesi için <a href="https://github.com/sercaneraslan/angular-disqus-directive">Angular Disqus Directive</a>'i hazırladım.</li>
+</ul>
+
+<h3>Bütün bunlar olurken;</h3>
+
+<ul>
+    <li>PHP Konf'ta Grabs hakkında sunum yaptım.</li>
+    <li>Edindiğim yeni bilgilerle/tecrübelerle eski repolarımı güncelledim.</li>
+    <li><a href="http://blog.sercaneraslan.com/sitenizi-github-uzerinde-ucretsiz-barindirin">Sitenizi Github Üzerinde Ücretsiz Barındırın</a> isimli makaleyi yayımladım.</li>
+</ul>
+
+<p>ve son olarak bu makaleyi hazırlayarak kendime verdiğim sözü tutmuş olmanın verdiği hazla sitemi yenileme maceramı tamamlamış oldum :)</p>
+
+<h2>Sonuç</h2>
+
+<p>Buz dağının görünmeyen kısmı her zaman kötü olmayabilir. Kendi işlerinizi ertelemeyin, kendi projelerinize, sitelerinize ve bloglarınıza vakit ayırın. Yolun başındayken bu kadar eğleneceğimi ve çok güzel tecrübeler edineceğimi hiç tahmin etmemiştim. Sizede sitenizi en kısa zamanda yenilemenizi öneririm. Kim bilir belki hepimizin kullanacağı güzel projeler çıkar :)</p>
+
