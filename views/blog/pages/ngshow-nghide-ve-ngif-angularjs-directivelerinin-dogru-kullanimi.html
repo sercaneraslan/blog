@@ -1,0 +1,34 @@
+<h1 ng-title>ngShow, ngHide ve ngIf AngularJS Directive'lerinin Doğru Kullanımı</h1><span class="time">26 Ocak 2015</span> <img alt="Angular" src="/img/static/posts/angular/angular.jpg"><p>Angular kodu yazarken birçok sayfada ngShow, ngHide ve ngIf directive'lerini kullanmaktayız. Bu directive'ler işlerimizi çok kolaylaştırıyor ve kodun okunabilirliğine oldukça yardımcı oluyor fakat kullanırken dikkat etmemiz gereken bazı unsurlar var. Her ne kadar birbirine benziyor gibi görünseler de farklılar. Bu yüzden ihtiyacımıza uygun olanını tercih etmeliyiz.</p><h2>ngShow ve ngHide Kullanımı</h2><p>Eğer sayfanızda oturum süresi boyunca gizlenip görünecek olan içerikler varsa bu içerikler için ngShow ya da ngHide kullanmalısınız. Eğer sayfanızda oturum süresi boyunca değişmeyecek bir içerik için ngShow ya da ngHide kullanırsanız yazılan içerikler DOM'a boşu boşuna yüklenecekler.</p><p>Eğer ngShow ya da ngHide içinde kullanacağınız değişkenin değeri bir AJAX isteğinin cevabına göre belirlenecekse ve AJAX isteğinin cevabı herhangi bir nedenden ötürü (internet hızı, tarayıcı yavaşlığı vs) yavaş gelirse, sayfa ilk yüklendiğinde değişkeninizin değeri "null" olacak ve ngShow ya da ngHide kuralınız çalışmayacak. Ta ki AJAX isteği tamamlanana kadar. Bu durumda görünmesi gereken alanlar görünmeyebilecek, görünmemesi gereken alanlar ise görünebilecek.</p><pre>
+    <code class="language-markup" prism>
+&lt;p ng-hide="messages.length > 0"&gt;Mesajınız bulunmamaktadır.&lt;/p&gt;
+    </code>
+</pre><p>Yukarıdaki örneği inceleyelim;</p><p>Angular, "$scope" altında tanımlanmış olan değişkenleri sürekli güncel tuttuğu için sayfa ilk yüklendiğinde "messages" değişkeninin değeri AJAX cevabı gelene kadar "null" olacak. Dolayısıyla ngHide içinde yazılan "messages.length > 0" kuralı "false" olacak. Kural "false" olduğunda ngHide directive'i içeriği gizleyemeyecek. Bu durumda yukarıdaki içerik, AJAX isteği bitene kadar görünecek ve istek bittiğinde kaybolacak.</p><p>Bu sorunun çözümü basit. ngHide yerine ngShow kullanalım ve kuralımızı tekrar düzenleyelim. Aşağıdaki içerik AJAX isteği yıllar sürecek olsa bile istek bittikten sonra görünecek çünkü "messages" değişkeni "null" olsada kural "false" olacağı için görünme/kaybolma sorunu yaşanmayacak.</p><pre>
+    <code class="language-markup" prism>
+&lt;p ng-show="messages.length === 0"&gt;Mesajınız bulunmamaktadır.&lt;/p&gt;
+    </code>
+</pre><p>Eğer sayfalarınızda AJAX isteklerinden dönen cevaplarla üretilecek büyük içerikler olacaksa template'inizdeki içeriği bir div ile sarmalayarak "Sadece ana obje erişilebilir olduğunda içeriği göster" diyebiliriz.</p><p>Örneğin;<pre>
+    <code class="language-markup" prism>
+&lt;!-- Mesajlarin verisi hazir olana kadar loading gosteriyoruz. --&gt;
+&lt;div ng-hide="messages"&gt;
+    &lt;p&gt;Mesajlar Yükleniyor...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Mesajlarin verisi hazir oldugunda icerigi gosterecegiz. --&gt;
+&lt;div ng-show="messages"&gt;
+
+    &lt;!-- Mesaj olmadigi durumda mesajınız yok diyoruz --&gt;
+    &lt;div ng-hide="messages.length > 0"&gt;
+        &lt;p&gt;Mesajınız bulunmamaktadır.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Herhangi bir mesaj varsa mesajlari listeliyoruz --&gt;
+    &lt;div ng-show="messages.length > 0"&gt;
+        &lt;ul&gt;
+            &lt;li ng-repeat="message in messages"&gt;
+                &lt;span ng-bind="message.content"&gt;&lt;/span&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    </code>
+</pre></p><p>Yukarıdaki örnekte bizim görünmesini istemediğimiz içerikler görünmeyecek, verilerimiz hazır olduğunda istediğimiz içerikler görünecek. Gizle/göster yapacağımız içerikler bir div ile sarmalandığından ve bu div'e "messages" array'i hazır olduğunda görün dediğimiz için görünme/kaybolma sorunları yaşanmayacak.</p><h2>ngIf Kullanımı</h2><p>Eğer sayfanızda oturum süresi boyunca sadece bir kez görünebilme ihtimali olan içerikler varsa bu içerikler için ngIf kullanmalısınız. ngIf kullanmanız durumunda görünmeyecek olan içerikler DOM'a yüklenmeyecek dolayısıyla içeriklerdeki directive'ler çalışmayacak. ngShow ve ngHide kullanılması durumunda içerikler DOM'a yüklenir ve içeriklerdeki directive'ler çalışır. Bu sebeple ngIf kullanımı size oldukça performans sağlayacaktır, o yüzden ngShow ya da ngHide yazarken "Buraya ngIf yazmam gerekir mi?" diye düşünmenizi tavsiye ederim.</p><p>ngIf, kullanılan bloğun içinde yeni bir "child scope" yaratılır. Eğer ngIf kullanılan bloğun içinde mevcut scope'taki bir değişkeni değiştirmek isterseniz "$parent.degiskenAdi" şeklinde erişmeniz gerekecektir.</p><p>Örnek:</p><div codepen cp-user="sercaneraslan" cp-slug-hash="QwgKXb" cp-height="400"></div><h2>Sonuç</h2><p>ngShow, ngHide ve ngIf directive'lerinin nasıl kullanıldığını, avantajlarını ve dezavantajlarını gördük. Siz de ihtiyacınıza uygun olanı seçerek performans sağlayın ve görünüm problemleri yaşamayın.</p><p>Not: Bu makale <a href="http://labs.sahibinden.com/yazi/ngshow-nghide-ve-ngif-angularjs-directivelerinin-dogru-kullanimi/">labs.sahibinden.com</a> üzerinde de yayımlanmıştır.</p>
