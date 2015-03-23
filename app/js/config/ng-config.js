@@ -1,7 +1,7 @@
 // Defined Grabs Module
 var grabs = angular.module('grabs', [
         'ngRoute',
-        'ngTitle',
+        'ngHead',
         'ngPrism',
         'ngCodepen',
         'ngDisqus'
