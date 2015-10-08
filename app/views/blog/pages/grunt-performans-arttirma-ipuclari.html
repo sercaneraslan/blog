@@ -1,0 +1,231 @@
+<h1 ng-head ng-title>Grunt Performans Arttırma İpuçları</h1>
+
+<span class="time">27 Ağustos 2015</span>
+
+<img alt="Angular" src="/img/static/posts/grunt/grunt.png">
+
+<p ng-head ng-auto-description>SAFE’in (sahibinden.com geliştirme ortamının) ilk versiyonunu Ağustos 2013’te hazırlanmaya başlamıştık. O sıralarda dosyaların sayısı, dosya boyutları ve Grunt task’larımızın sayısı bugüne göre çok daha azdı. Dolayısıyla Grunt task’larımız çok kısa sürelerde tamamlanıyordu ve iyileştirme yapmak gibi bir ihtiyaç hissedilmemişti. O günden bugüne kadar küçük ve orta seviyede geliştirmelerimiz devam etti fakat aradan geçen 2 sene sonunda dosya sayılarının, dosya boyutlarının ve task’larımızın sayısının artması sebebiyle task’larımızın çalışma süreleri ilk zamanlara göre fazlasıyla artış gösterdi. Tabi bu task’ların çoğu saniyeler içinde tamamlanıyor ama sahibinden.com gibi büyük ölçekli firmalar için zaman çok önemli.</p>
+
+<p>Zamanı daha verimli kullanabilmek için SAFE’i v2’ye geçirirken edindiğim Grunt tecrübelerine birlikte göz atalım.</p>
+
+<h2>Task’ların İçindeki İşleri Eş zamanlı Çalıştırma</h2>
+
+<p>Task’ların içindeki işleri ve task’ların kendilerini eş zamanlı olarak çalıştırmak oldukça iyi bir yöntem. Bu sayede çok fazla dosyanız olsa bile işleriniz çok kısa sürecek.</p>
+
+<p>Örneğin;</p>
+
+<p>100 tane HTML dosyasını tek seferde sıkıştırmak yerine 4 parça haline getirip 25’er dosya halinde eş zamanlı olarak sıkıştırmak çok daha hızlı sonuç verecektir. Task’ların içindeki işleri eş zamanlı çalıştırabilmeyi sağlaması için <a href="https://github.com/teppeis/grunt-parallelize">grunt-parallelize</a> plugin’ini kullanacağız.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+npm install grunt-parallelize --save-dev
+    </code>
+</pre>
+
+<p>komutuyla plugin'i yükledikten sonra eş zamanlı olarak çalıştırmak istediğiniz işleri <strong>parallelize</strong> task'ının altına tanımlayınız.</p>
+
+<p>Örneğin;</p>
+
+<pre>
+    <code class="language-javascript" prism>
+grunt.initConfig({
+    stylus: {
+        all: {
+            files: {
+                'build/css/common.css': ['app/styles/**/*.styl']
+            }
+        }
+    },
+    parallelize: {
+        stylus: {
+            all: 4
+        }
+    }
+});
+    </code>
+</pre>
+
+<p>Yukarıdaki örnekte bulunan rakam (4), stylus task'ının kaç parçaya bölünerek çalışacağını belirtmektedir. Benim edindiğim tecrübe, Grunt'ı çalıştırdığınız makinedeki çekirdek sayısı / 2'dir. Yani makinenizde 8 çekirdek varsa task'ları 4'e bölmek en iyi sonucu verecektir.</p>
+
+<h2>Task'ları Eşzamanlı Çalıştırma</h2>
+
+<p>Yukarıdaki örnekte task içindeki işleri eş zamanlı çalıştırmayı görmüştük. Bu başlıkta ise birden fazla task'ı aynı anda yani eş zamanlı olarak çalıştırmayı göreceğiz.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+npm install grunt-concurrent --save-dev
+    </code>
+</pre>
+
+<p>komutuyla <a href="https://github.com/sindresorhus/grunt-concurrent">grunt-concurrent</a> plugin'ini yükledikten sonra hangi task'ları eş zamanlı çalıştıracağımızı tanımlayalım.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+grunt.initConfig({
+    concurrent: {
+        live: [
+            'stylus:live',
+            'uglify:live'
+        ],
+        tests: [
+            'eslint',
+            'karma',
+            'jsonlint'
+        ]
+    }
+});
+    </code>
+</pre>
+
+<p>Yukarıdaki örnekte task olarak <strong>concurrent:live</strong>'ı kullandığınızda <strong>stylus:live</strong> ve <strong>uglify:live</strong> task'ları eş zamanlı çalışarak zamandan oldukça tasarruf ettirecek. Aynı şekilde <strong>concurrent:tests</strong>'i kullandığınızda <strong>eslint</strong>, <strong>karma</strong> ve <strong>jsonlint</strong> task'ları eş zamanlı çalışacaklar.</p>
+
+<p>SAFE v2'de performansımızı en çok arttıran plugin'lerden biridir. Sprite'ları üretme, Bower bağımlılıklarını yükleme, Stylus'ları CSS'e derleme gibi çok zaman alan task'ları eş zamanlı çalıştırarak oldukça zaman kazandık. Performans iyileştirmelerinin sonuçlarını ileride anlatmaya çalışacağım.</p>
+
+<p>Not: Task'ların süre ve tip olarak uyumluluğu çalışma süresini olumlu ya da olumsuz olarak etkileyebiliyor. En iyi uyumu yakalamak için farklı testler yapmanızı öneririm.</p>
+
+<h2>Grunt Plugin'lerinin Hızlı Yüklenmesini Sağlama</h2>
+
+<p>SAFE'in ilk versiyonunu hazırladığımız zamanlarda Grunt plugin'lerini otomatik olarak ve hızlı bir şekilde yüklemek gibi bir imkan yoktu. Her plugin'in tek tek yüklenmesi gerekiyordu ve bu işlem uzun sürüyordu. Çözüm olarak plugin'ler sadece gerektiği zamanlarda yüklensinler diye belli kontroller eklenmişti.</p>
+
+<p>Örneğin, default task'ı çalışıyorsa JavaScript sıkıştırma işini yapmayacağımız için "grunt-contrib-uglify" plugin'ini yüklemiyorduk. Tabi bu kontrolleri yaklaşık 80 satırda yaptığımız için kodun okunabilirliği azalmış, geliştirilmesi zorlaşmış ve karmaşıklığı artmıştı. Şimdi ise tek satır kod ile bütün plugin'leri kontrol etmeksizin yükleyebiliyoruz ve bu işlem yaklaşık 3 milisaniye sürüyor.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+npm install load-grunt-tasks --save-dev
+    </code>
+</pre>
+
+<p>komutuyla <a href="https://github.com/sindresorhus/load-grunt-tasks">load-grunt-tasks</a> plugin'ini yükledikten sonra <strong>Gruntfile.js</strong>'teki <strong>module.exports</strong> fonksiyonu içerisine <strong>require('load-grunt-tasks')(grunt);</strong> satırını ekliyoruz.</p>
+
+<p>Örneğin;</p>
+
+<pre>
+    <code class="language-javascript" prism>
+
+module.exports = function (grunt) {
+    require('load-grunt-tasks')(grunt);
+
+    grunt.initConfig();
+    grunt.registerTask('default', []);
+}
+    </code>
+</pre>
+
+<p>Yukarıdaki <strong>require('load-grunt-tasks')(grunt);</strong> satırı <strong>['grunt-*', '@*/grunt-*']</strong> pattern'ına uyan plugin'leri otomatik olarak yükleyecektir. Eğer <strong>package.json</strong> dosyanızda farklı bir pattern'a uyan plugin ismi varsa <a href="https://github.com/sindresorhus/load-grunt-tasks">dokümana</a> göre güncelleyebilirsiniz.</p>
+
+<h2>Sadece Değişen Dosyayı İşleme</h2>
+
+<p>Grunt, <strong>watch</strong> modundayken herhangi bir dosyada değişiklik yapıldığında watch edilen bütün dosyalar işlem görür. Örneğin, watch modundayken bir Stylus dosyası değiştirirseniz <strong>bütün</strong> Stylus'larınız tekrar derlenir. Bütün dosyaların derlenmesi yerine sadece değişen dosyayı derlemek için <a href="https://github.com/tschaub/grunt-newer">grunt-newer</a> plugin'ini kullanacağız.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+npm install grunt-newer --save-dev
+    </code>
+</pre>
+
+<p>komutuyla plugin'i yükledikten sonra sadece değişen dosyalar için çalışmasını istediğimiz task'ın adının başına <strong>"newer:"</strong> ekliyoruz.</p>
+
+<p>Örneğin;</p>
+
+<pre>
+    <code class="language-javascript" prism>
+grunt.initConfig({
+    stylus: {
+        all: {
+            files: {
+                'build/css/common.css': ['app/styles/</strong>/*.styl']
+            }
+        }
+    },
+    watch: {
+        stylus: {
+            files: ['app/views/</strong>/*.styl'],
+            tasks: ['newer:stylus:all']
+        }
+    }
+});
+    </code>
+</pre>
+
+<p>Yukarıdaki kod herhangi bir Stylus dosyası değiştinde <strong>newer</strong>'ı çalıştıracak. O da değişen dosyayı bulup <strong>stylus</strong>'un altındaki <strong>all</strong> task'ını çalıştıracak. Bu işlemin sonucunda <strong>common.css</strong> dosyasına sadece değiştirilen dosyadaki değişiklik eklenmiş olacak.</p>
+
+<h2>Fast Task'ı ile Geliştirme Ortamınızı Hızlıca Ayağa Kaldırma</h2>
+
+<p>Eğer bir Performans arttırma işi yapıyorsanız size tavsiyem kendinize sürekli olarak <strong>"Acaba buna gerek var mı?"</strong> sorusunu sormanızdır. Onun gerekli olduğunu düşünseniz bile yine de bu soruyu kendinize en az 1 defa sorun. İşte <strong>fast</strong> task'ının çıkış noktası bu soru idi.</p>
+
+<p>Grunt'ın default task'ında bulunan yani geliştirme ortamını ayağa kaldırmak için yaptırdığımız işleri aslında her seferinde yapmamıza gerek yoktur. default task bir kez çalıştığında "tmp, build vs" gibi geçici klasörlerde dosyalarımız işlenmiş bir şekilde durur. İşlenen dosyaların tekrar işlenmesine gerek olmadığı için sadece server'ı ve watch'u açmanız yeterli olacaktır.</p>
+
+<p>Örneğin;</p>
+
+<pre>
+    <code class="language-javascript" prism>
+grunt.registerTask('fast', [
+    'connect:server',
+    'watch'
+]);
+    </code>
+</pre>
+
+<p>Yukarıdaki gibi bir task tanımlayıp <strong>grunt fast</strong> komutunu çalıştırırsanız geliştirme ortamınız 1 saniye içine ayağa kalkacaktır. Güzel, değil mi?</p>
+
+<h2>Task'ların Çalışma Sürelerini Raporlama</h2>
+
+<p>Bu başlıkta performans arttırmaya değil raporlamaya yönelik bir plugin'den bahsedeceğim. Kullanacağınız yeni plugin'lerin ne kadar fayda sağladığını <a href="https://github.com/sindresorhus/time-grunt">time-grunt</a> plugin'i ile ölçeceğiz.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+npm install time-grunt --save-dev
+    </code>
+</pre>
+
+<p>komutuyla plugin'ini yükledikten sonra <strong>Gruntfile.js</strong>'teki <strong>module.exports</strong> fonksiyonu içerisine <strong>require('time-grunt')(grunt);</strong> satırını ekliyoruz.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+module.exports = function (grunt) {
+    require('time-grunt')(grunt);
+
+    grunt.initConfig();
+    grunt.registerTask('default', []);
+}
+    </code>
+</pre>
+
+<p>Bu işlemden sonra konsoldan hangi task'ın ne kadar sürede çalıştığını, diğer task'lara oranla ne kadar sürdüğünü, toplam çalışma süresini vb bilgileri ölçebileceksiniz.</p>
+
+<h2>Gruntfile.js'i Düzenleme</h2>
+
+<p>Daha okunabilir, geliştirilebilir ve tekrar kullanılabilir bir Gruntfile.js dosyasına sahip olmak için aşağıdaki adımları izleyebilirsiniz.</p>
+
+<ul>
+    <li>Task'lara özel olarak tanımlanan herhangi bir şey varsa bunları task'ların içlerine alınız. Bu sayede gerektiği zaman kullanılacaklar ve task'ları sildiğinizde başka bir yere bakmak zorunda kalmayacaksınız.</li>
+    <li>Kullanılmayan herhangi bir şey varsa silin. Örneğin; "pkg: grunt.file.readJSON('package.json')" gibi bir config'iniz varsa muhtemelen kullanmıyorsunuzdur.</li>
+    <li>Daha okunabilir olması için indentleri düzeltin, her task'ın ne iş yaptığını ve neden kullanıldığı yorum (comment) olarak ekleyin.</li>
+    <li>Elle yazılmış olan ve dosya isimlerinden oluşan uzun array’leri config.json benzeri ayrı bir dosyaya taşıyın.</li>
+</ul>
+
+<h2>SONUÇ</h2>
+
+<p>Hangi plugin'lerin bize nasıl bir fayda sağladığını ve sonuçlarının nasıl etki ettiğini görelim;</p>
+
+<h3>package</h3>
+
+<p>package task'ı, Live'a / Canlı Ortama gönderim sırasında çalışan task'ımızdır. HTML'lerin sıkıştırılması, Stylus dosyalarının CSS'e derlenmesi, Sprite'ların üretilmesi gibi işleri yapar yani SAFE kodlarının Live'a hazır hale gelmesini sağlar. package task'ı, Eskiden yaklaşık <strong>1 dakika 14 saniye</strong>de tamamlanırken şu an yaklaşık <strong>29 saniye</strong>de tamamlanıyor. Yani eskisine göre hızımızda <strong>2.5 kat</de> ya da <strong>%156</strong> artış oldu.</p>
+
+<h3>default</h3>
+
+<p>default task'ı, Local / Geliştirme ortamını ayağa kaldırırken çalışan task'ımızdır. Bu task'ta dosyaların sıkıştırılması, birleştirilmesi vb işlere ihtiyaç yoktur yani SAFE kodlarının Local ortamda hata ayıklayabilir bir şekilde çalışmasını sağlamaktadır. Eskiden Local ortamı ayağa kaldırmak yaklaşık <strong>33 saniye</strong> sürerken şu an yaklaşık <strong>14 saniye</strong> sürüyor. Yani eskisine göre hızımızda <strong>2.2 kat</strong> ya da <strong>%126</strong> artış oldu.</p>
+
+<h3>fast</h3>
+
+<p>default task'ın eski hali <strong>33 saniye</strong> sürerken fast task'ı şu an <strong>1 saniye</strong> sürüyor. Yani eskisine göre hızımızda <strong>33.7</strong> kat ya da <strong>%3270</strong> artış oldu.</p>
+
+<h3>sprite</h3>
+
+<p>Sprite’ları üretmek eskiden yaklaşık <strong>31 saniye</strong> sürerken şu an yaklaşık <strong>5 saniye</strong> sürüyor. Yani eskisine göre hızımızda <strong>6 kat</strong> ya da <strong>%498</strong> artış oldu.</p>
+
+<h3>test</h3>
+
+<p>Kod kalitesini yüksek tutmak için çalışan testler eskiden yaklaşık <strong>9 saniye</strong> sürerken şu an yaklaşık <strong>5 saniye</strong> sürüyor. Yani eskisine göre hızımızda <strong>1.8 kat</strong> ya da <strong>%80</strong> artış oldu.</p>
+
+<p>Not: Bu makale <a href="http://labs.sahibinden.com/yazi/grunt-performans-arttirma-ipuclari/">labs.sahibinden.com</a> ve <a href="http://webmagazin.co/grunt-performans-arttirma-ipuclari/">webmagazin.co</a> üzerinde de yayımlanmıştır.</p>
