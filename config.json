@@ -6,7 +6,8 @@
         "sitemi-yenileme-maceram",
         "sitenizi-github-uzerinde-ucretsiz-barindirin",
         "zamandan-tasarruf-ettiren-gorev-calistiricisi-grunt",
-        "sublime-texti-etkin-kullanma"
+        "sublime-texti-etkin-kullanma",
+        "neden-custom-select-kullanmamaliyiz"
     ],
     "jshint": {
         "unused": true,
