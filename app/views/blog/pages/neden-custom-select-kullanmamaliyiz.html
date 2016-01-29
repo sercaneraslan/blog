@@ -1,22 +1,22 @@
 <h1 ng-head ng-title>Neden Custom Select Kullanmamalıyız?</h1>
 
-<span class="time">28 Ocak 2016</span>
+<span class="time">29 Ocak 2016</span>
 
 <img alt="Custom Select" src="/img/static/posts/other/gbu.png">
 
-<p ng-head ng-auto-description>Yıllardır farklı kişilerle farklı ortamlarda "Native Select mi yoksa Custom Select mi?" tartışmaları bıkmadan usanmadan tekrar tekrar yapıldı ve yapılmaya devam ediyor. Bu makaleyi, bu tartışmalar artık yapılmasın, vaktimiz artık boşa harcanmasın diye hazırladım.</p>
+<p ng-head ng-auto-description>Yıllardır farklı kişilerle farklı ortamlarda "Native Select mi yoksa Custom Select mi?" tartışmaları bıkmadan usanmadan tekrar tekrar yapıldı ve yapılmaya devam ediyor. Bir sürü Front-End'çi ile tasarımcının arası bu tartışmalar sebebiyle açıldı. Kimi İyi'yi, kimi Kötü'yü kimi de Çirkin'i savundu. Artık bu tartışmalar yapılmasın, vaktimiz boşa harcanmasın diye bu makalede Select seçeneklerini, avantajlarını ve dezavantajlarını inceleyeceğiz. Makaleyi okuduktan sonra doğru tercihi yapacağınızı umuyorum :)</p>
 
 <p>Öncelikle seçeneklerimizi görelim/tanıyalım.</p>
 
 <h2>Native Select (The Ugly)</h2>
 
-<p>Tarayıcıların bize bir çok özellik ile birlikte verdiği yerleşik bir HTML elemanıdır. Ekstradan CSS ve JavaScript yazmaya gerek kalmadan çalışır. Her türlü durum tarayıcının kendisinde handle edilir (Elemena tıklayınca menüyü göstermesi, seçeneklerden birini seçince otomatik seçili yapması ve ardından menüyü kapatması vb.). Oldukça hızlı çalışır.</p>
+<p>Tarayıcıların bize bir çok özellik ile birlikte verdiği yerleşik bir HTML elemanıdır. Ekstradan CSS ve JavaScript yazmaya gerek kalmadan çalışır. Her türlü durumu tarayıcı kendisi kontrol eder (Elemena tıklayınca menüyü göstermesi, seçeneklerden birini seçince otomatik seçili yapması ve ardından menüyü kapatması vb.). Oldukça hızlı çalışır.</p>
 
 <div codepen cp-user="sercaneraslan" cp-slug-hash="OMmmOW" cp-height="250"></div>
 
 <h2>Custom Select (The Bad)</h2>
 
-<p>Herşeyin sıfırdan yazıldığı ve her türlü durumu bizim handle ettiğimiz seçenektir. Oldukça fazla HTML, CSS ve JavaScript kodu gerektirir ve performans problemi yaratır.</p>
+<p>Herşeyin sıfırdan yazıldığı ve her türlü durumun bizim tarafımızdan ekstra kod yazılarak kontrol edildiği seçenektir. Oldukça fazla HTML, CSS ve JavaScript kodu gerektirir ve performans problemi yaratır.</p>
 
 <div codepen cp-user="sercaneraslan" cp-slug-hash="RrVVqG" cp-height="250"></div>
 
@@ -26,7 +26,7 @@
 
 <div codepen cp-user="sercaneraslan" cp-slug-hash="WrjjdZ" cp-height="250"></div>
 
-<p>Not: Hybrid seçeneğinde label etiketi koymadan arkaplan görseli ekleyerekte aynı görünüm elde edilebilir fakat biz görsel yüklemek yerine bu yöntemi tercih ettik.</p>
+<p>Not: Hybrid seçeneğinde label etiketi koymadan Select elemanına arkaplan görseli ekleyerekte aynı görünüm elde edilebilir fakat ben görsel yüklemek yerine bu yöntemi tercih ettim.</p>
 
 <h2>Avantajlar ve Dezavantajlar</h2>
 
@@ -77,7 +77,7 @@
 
     <li><strong>HTML5 Form Validation</strong>
         <ul>
-            <li>HTML5 ile gelen form validation'ı kullanamazsınız, hata olursa kendiniz handle etmeniz gerekir.</li>
+            <li>HTML5 ile gelen form validation'ı kullanamazsınız, hata olursa kendiniz kontrol etmeniz gerekir.</li>
         </ul>
     </li>
 
@@ -147,6 +147,8 @@
 
 <p>Yukarıdaki dezavantajlardan dolayı Custom Select'i tercih etmek mantıklı bir seçim olmaz.</p>
 
-<p>Benim kişisel önerim, Apple'ın da tercih ettiği gibi Native Select'in tercih edilmesi yönünde. Eğer Select elemanlarının yeniden tasarlığında eskisine göre daha faydalı olduğu birkaç durum varsa o zaman Hybrid kullanımını tercih etmeniz gerekecek.</p>
+<p>Benim kişisel önerim, Apple'ın da tercih ettiği gibi Native Select'in tercih edilmesi yönünde. Eğer Select elemanlarının yeniden tasarlığında eskisine göre daha faydalı olduğu birkaç durum varsa o zaman Hybrid kullanımını tercih edebilirsiniz.</p>
 
+<p>Bu makalede olmasını/düzeltilmesini istediğiniz maddeler olursa mail atabilirsiniz ya da yorum alanını kullanabilirsiniz.</p>
 
+<p>Bu tartışmaların artık yapılmadığı bir dünya dileğiyle..</p>
