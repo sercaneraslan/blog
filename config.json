@@ -7,7 +7,8 @@
         "sitenizi-github-uzerinde-ucretsiz-barindirin",
         "zamandan-tasarruf-ettiren-gorev-calistiricisi-grunt",
         "sublime-texti-etkin-kullanma",
-        "neden-custom-select-kullanmamaliyiz"
+        "neden-custom-select-kullanmamaliyiz",
+        "ecmascript-6-destructuring"
     ],
     "jshint": {
         "unused": true,
