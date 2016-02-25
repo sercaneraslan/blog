@@ -1,0 +1,247 @@
+<h1 ng-head ng-title>ECMAScript 6 - Değişkenler</h1>
+
+<span class="time">29 Şubat 2016</span>
+
+<img alt="Angular" src="/img/static/posts/es6/es6.png">
+
+<p ng-head ng-auto-description>Birçok C tabanlı dilde değişkenler bildirildikleri (declare edildikleri) yerde oluşurlar fakat JavaScript'te durum böyle değildir. Değişkeni nerede ve nasıl yazdığınıza göre değişkeninizin oluştuğu yer belli olur. ECMAScript 6 ile artık değişkenlerin scope'unu (kapsamını) kontrol edebiliyoruz yani bildirildiği yerde oluşmasını sağlayabiliyoruz ama öncelikle <strong>hoisting</strong> konusuna değinmemiz gerekiyor.</p>
+
+<h3>Hoisting</h3>
+
+<p>JavaScript'in, tüm bildirimleri otomatik olarak içinde bulunulan scope'un (script'in ya da mevcut fonksiyonun) tepesine taşınması işlemine hoisting denir.</p>
+
+<p>JavaScript'te değişkenler kullanıldıktan sonra bildirilebilir ya da bildirildikten sonra kullanılabilir. Aşağıdaki 2 örnekte aynı sonucu verecektir.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+a = 1;              // 1 a ya atandi
+
+console.log(a);     // 1
+
+var a;              // a bildirildi
+    </code>
+</pre>
+
+<pre>
+    <code class="language-javascript" prism>
+var a;              // a bildirildi
+
+a = 1;              // 1 a ya atandi
+
+console.log(a);     // 1
+    </code>
+</pre>
+
+<p><strong>var</strong> anahtar kelimesini kullanarak tanımladığınız (initialize edilmiş) değişkenler yukarı taşınmaz sadece bildirimi yukarıya taşınır. Aşağıdaki 2 örnek aynı sonucu ver<strong>me</strong>yecektir.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var a = 1;          // a tanimlandi
+var b = 2;          // b tanimlandi
+
+console.log(a);     // 1
+console.log(b);     // 2
+    </code>
+</pre>
+
+<pre>
+    <code class="language-javascript" prism>
+var a = 1;          // a tanimlandi
+
+console.log(a);     // 1
+console.log(b);     // undefined
+
+var b = 2;          // b tanimlandi
+    </code>
+</pre>
+
+<p>Son örnekte <strong>b</strong>, <strong>undefined</strong> değerini aldı çünkü <strong>b</strong>'nin yukarıya sadece bildirimi taşındı. JavaScript aslında yukarıdaki kodu çalıştırmadan aşağıdaki hale çevirdi.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var a = 1;          // a tanimlandi
+var b;              // b bildirildi
+
+console.log(a);     // 1
+console.log(b);     // undefined
+
+b = 2;              // b tanimlandi
+    </code>
+</pre>
+
+<p>Hoisting konusu birçok kişi tarafından dikkat edilmeyen ama aslında hatasız kod yazabilmek ve kodun nasıl yorumlanacağını bilmek açısından çok önemli bir durumdur, detaylı olarak inceleyip konuya hakim olmanızı tavsiye ederim.</p>
+
+<h2>Block-Level Bildirimler</h2>
+
+<p>Block scope, bir fonksiyonun içinde ve/veya bir block'un (süslü parantezlerin yani { ve } karakterlerinin) içinde oluşur. Block scope içinde oluşturulan Block-Level bildirimler ise sadece o block scope içinde kullanılabilir, dışarıdan erişilemez.</p>
+
+<h2>Let Bildirimleri</h2>
+
+<p><strong>let</strong> sözdizimi (syntax'i) ve kullanımı <strong>var</strong> ile hemen hemen aynıdır. En büyük fark; <strong>let</strong>, Block-Level bir bildirimdir yani mevcut scope dışında kullanılamaz, sadece bulunulan scope'ta geçerlidir dolayısıyla <strong>let</strong> kullanımlarında hoisting işlemi olmaz.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var mesafe = 10;
+
+function mesafeHesapla(tip) {
+
+    if (tip == 'kosu') {
+        var mesafe = 7;
+
+        return mesafe;
+    }
+
+    return mesafe;
+}
+
+console.log( mesafeHesapla() );   // undefined
+    </code>
+</pre>
+
+<p>Yukarıdaki <strong>mesafeHesapla</strong> fonksiyonu <strong>undefined</strong> değerini döndü çünkü <strong>if</strong> bloğunun içerisindeki <strong>var</strong> anahtar kelimesi ile tanımlanan <strong>mesafe</strong> değişkeni hoisting işlemine girdi ve aşağıdaki gibi yorumlandı. (Her ne kadar bizim yazdığımız kod çalıştığında if bloğunu es geçecek olsada JavaScript if bloğu içerisindeki bildirimi yukarıya taşıyacak.)</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var mesafe = 10;
+
+function mesafeHesapla(tip) {
+
+    var mesafe;
+
+    if (tip == 'kosu') {
+        mesafe = 7;
+
+        return mesafe;
+    }
+
+    return mesafe;
+}
+
+console.log( mesafeHesapla() );   // undefined
+    </code>
+</pre>
+
+<p>Bu ve benzeri durumlarda oluşan hoisting problemlerinden kurtulmak için artık <strong>let</strong> anahtar kelimesini kullanacağız. <strong>let</strong> kullandığımızda fonksiyonun hangi değeri döndüreceğini inceleyelim.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var mesafe = 10;
+
+function mesafeHesapla(tip) {
+
+    if (tip == 'kosu') {
+        let mesafe = 7;
+
+        return mesafe;
+    }
+
+    return mesafe;
+}
+
+console.log( mesafeHesapla() );   // 10
+    </code>
+</pre>
+
+<p><strong>var</strong> yerine <strong>let</strong> anahtar kelimesini kullandığımız için hoisting işlemi olmadı ve <strong>let</strong> ile tanımlanan değişken sadece bulunduğu scope'ta geçerli oldu. Dolayısıyla fonksiyonun en altındaki <strong>mesafe</strong> isimli değişken en yukarıda tanımlanmış olan değişkenin değeriyle (10) yaşamaya devam etti ve fonksiyonumuz <strong>10</strong> değerini döndürdü.</p>
+
+<h3>Yeniden Tanımlama</h3>
+
+<p>Eğer bir scope içerisinde önceden <strong>var</strong> anahtar kelimesi ile tanımlanan bir değişkeni <strong>let</strong> ile tekrar tanımlamaya çalışırsanız hata alırsınız.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var a = 1;
+
+let a = 2;      // sozdizimi hatasi
+    </code>
+</pre>
+
+<p>Eğer farklı scope'larda olursa önceden <strong>var</strong> anahtar kelimesi ile tanımlanan bir değişkeni <strong>let</strong> ile tekrar tanımlayabilirsiniz.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+var a = 1;
+
+if (a == 1) {
+    let a = 2;
+    
+    console.log(a);   // 2
+}
+
+console.log(a);       // 1
+    </code>
+</pre>
+
+<h2>Const Bildirimleri</h2>
+
+<p>ECMAScript 6 ile birlikte artık sabit/değiştirilemez bildirimler tanımlayabiliyoruz. <strong>const</strong>, <strong>let</strong> ile bir fark haricinde birebir aynı şekilde çalışır. O fark, <strong>const</strong> anahtar kelimesi ile tanımlanan değişkenlerin sonradan değiştirilememesidir. Nasıl kullanıldığını görelim.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+const a = 1;
+
+a = 2;      // hata: a degistirilemez
+    </code>
+</pre>
+
+<p>Yukarıdaki örnekte sabit/değiştirilemeyen <strong>a</strong> isminde bir değişken oluşturduk ve bu değişkeni değiştirmek istediğimizde hata aldık. Burada dikkat edilmesi gerek bir nokta var, <strong>const</strong> ile tanımlanan değişkenler sonradan değiştirilemediği için sadece bildirimi yapıp değişkene bilgi atamadığınızda sözdizimi hatası alırsınız.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+const a;    // sozdizimi hatasi
+    </code>
+</pre>
+
+<h3>Const ile Tanımlanmış Objeler</h3>
+
+<p>Bir önceki başlıkta <strong>const</strong> ile tanımlanan değişkenler sonradan değiştirilemez demiştik ancak <strong>const</strong> ile bir obje tanımlarsanız durum biraz değişiyor çünkü <strong>const</strong> ile tanımlanmış olsa bile objenin bir özelliğinin (property'sinin) değerini (value'sunu) değiştirebiliyoruz ya da objeye yeni bir özellik ekleyebiliyoruz. (Değiştirilen şey objenin kendisi değil özellikleri ya da değerleridir.)</p>
+
+<pre>
+    <code class="language-javascript" prism>
+const mesafe = {
+    kosu: 5
+};
+
+mesafe.kosu = 7;               // hata almadan degistirir
+mesafe.yuruyus = 15;           // hata almadan ekler
+
+console.log(mesafe.kosu);      // 7
+console.log(mesafe.yuruyus);   // 15
+    </code>
+</pre>
+
+<h2>Global Scope'ta Bildirimler</h2>
+
+<p><strong>var</strong> anahtar kelimesi ile tanımlanan değişkenlerin global scope'taki davranışı <strong>let</strong> ve <strong>const</strong>'tan farklıdır. <strong>var</strong> anahtar kelimesi global scope'ta kullanıldığında global scope'ta yeni bir değişken yaratılır yani tarayıcı üzerindeki <strong>window</strong> objesine eklenir. Eğer değişken zaten <strong>window</strong>'da varsa <strong>window</strong>'daki değişken değiştirilir. Bu yanlışlıkla ya da kasten <strong>window</strong> objesindeki değerlerin üzerine yazabileceğiniz anlamına geliyor. Örneğin, <strong>window</strong> objesinde öntanımlı olan <strong>alert</strong> fonksiyonunu değiştirmeyi deneyelim;</p>
+
+<pre>
+    <code class="language-javascript" prism>
+alert('merhaba');                       // calisti
+
+var alert = 'selam';                    // alert fonksiyonu ezildi
+
+console.log(alert);                     // 'selam'
+console.log(window.alert);              // 'selam'
+console.log(window.alert == alert);     // true
+
+alert('merhaba');                       // hata: alert bir fonksiyon degil
+    </code>
+</pre>
+
+<p>Yukarıda basit bir şekilde <strong>window</strong> objesinde öntanımlı olan <strong>alert</strong> fonksiyonunu değiştirdik ve artık <strong>alert</strong> fonksiyon olarak kullanılamaz hale geldi.</p>
+
+<p>Eğer <strong>var</strong> yerine <strong>let</strong> veya <strong>const</strong> kullanırsanız global scope'a bir değişken eklenir ancak <strong>window</strong>'daki objeye bir şey eklenmez bu sebeple <strong>window</strong> objesindeki bir özellik değiştirilemez.</p>
+
+<pre>
+    <code class="language-javascript" prism>
+let alert = 'selam';                 // alert fonksiyonu ezildi
+
+console.log(alert);                  // 'selam'
+console.log(window.alert);           // function alert() {}
+console.log(window.alert == alert);  // false
+    </code>
+</pre>
+
+<h2>Sonuç</h2>
+
+<p>Daha tahmin edilebilir ve daha az hataya müsait kodlar yazmak için <strong>var</strong> yerine <strong>let</strong> anahtar kelimesinin kullanmanın daha faydalı olduğu yönünde artan bir inanış var. Tabi bu bütün <strong>var</strong>'ların yerine <strong>let</strong> kullanacağız anlamına gelmiyor. Bütün uygulamanın erişmesi gereken değişkenler yine <strong>var</strong> ile tanımlanmalı, geçici olarak yaşayan ve bir scope haricinde başka bir yerde kullanılmayacak olan değişkenler <strong>let</strong> ile tanımlanmalı. Son olarak bütün bir akış boyunca değişmeyecek veriler içinde <strong>const</strong> kullanılmalı.</p>
