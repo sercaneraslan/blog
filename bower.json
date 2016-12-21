@@ -1,27 +1,27 @@
 {
-  "name": "grabs",
-  "description": "Grabs - Front-End Development Environment",
-  "author": "Grabs",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sercaneraslan/grabs.git"
-  },
-  "homepage": "http://grabs.in",
-  "version": "0.1.0",
-  "main": [],
-  "ignore": "",
-  "keywords": [
-    "framework",
-    "component",
-    "front-end",
-    "development",
-    "environment",
-    "app",
-    "grabs"
-  ],
-  "dependencies": {
-    "angular": "1.4.9",
-    "angular-route": "1.4.9"
-  }
+    "name": "grabs",
+    "description": "Grabs - Front-End Development Environment",
+    "author" : "Grabs",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sercaneraslan/grabs.git"
+    },
+    "homepage": "http://grabs.in",
+    "version": "0.1.0",
+    "main": [],
+    "ignore": "",
+    "keywords": [
+        "framework",
+        "component",
+        "front-end",
+        "development",
+        "environment",
+        "app",
+        "grabs"
+    ],
+    "dependencies": {
+        "angular": "1.5.8",
+        "angular-route": "1.5.8"
+    }
 }
