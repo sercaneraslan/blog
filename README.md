@@ -5,15 +5,7 @@
 Sercan Eraslan Blog
 ===================
 
-<a href="http://blog.sercaneraslan.com">Personel Blog</a>.
-
-Note: This Blog is using <a href="https://github.com/sercaneraslan/grabs">Grabs</a>
-
-## Documentation
-Please visit <a href="http://grabs.in">Grabs</a> website.
-
-## Contributing
-Feel free to open an issue or send a pull request.
+<a href="http://blog.sercaneraslan.com">Personel Blog</a>. (This Blog is using <a href="https://github.com/sercaneraslan/grabs">Grabs</a>)
 
 ## License
 MIT License.
