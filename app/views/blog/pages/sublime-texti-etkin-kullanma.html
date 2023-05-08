@@ -11,8 +11,8 @@
 <p>Peki Sublime Text bu tartışılan editörler arasına hangi özellikleriyle girmeyi başardı?</p>
 
 <ul>
-    <li>Hızlılık,</li>
-    <li>Stabillik,</li>
+    <li>Hız,</li>
+    <li>Stabilite,</li>
     <li>Sadelik,</li>
     <li>Özelleştirilebilme,</li>
     <li>Çoklu düzenleme / Çoklu seçim,</li>
@@ -167,27 +167,19 @@
 
 <h2>Paket Yükleme (Plug-in / Eklenti)</h2>
 
-<p>Öncelikle <strong>“Sublime Package Control”</strong>ü yükleyeceğiz. <strong>“Sublime Text &gt; View &gt; Show Console”</strong>u açıyoruz. Sonra aşağıdaki uzun kodu Console’a yapıştırıp <strong>“Enter”</strong>a basıyoruz.</p>
-
-<pre>
-    <code class="language-javascript" prism>
-import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
-    </code>
-</pre>
-
-<p>Bir süre bekledikten sonra <strong>“Sublime Package Control”</strong> kurulmuş oluyor.</p>
+<p>Öncelikle <a href="https://packagecontrol.io/installation">Sublime Package Control</a>ü yükleyeceğiz. <strong>Cmd + Shift + P</strong> tuşlarına basıp <strong>Install Package Control</strong> yazıyoruz ve <strong>Enter</strong> tuşuna basıyoruz.</p>
 
 <p><strong>“Cmd + Shift + P”</strong> tuş kombinasyonuyla <strong>“Command Pallette”</strong>i açıp <strong>“Package Control”</strong> yazıyoruz ve yüklediğimiz özellikler listeleniyor.</p>
 
 <p>Yeni bir paket yüklemek istediğinizde <strong>“Package Control: Install Package”</strong>, yüklediğiniz paketi silmek için <strong>“Package Control: Remove Package”</strong>, paket listenizi görmek için ise <strong>“Package Control: List Package”</strong>ı kullanabilirsiniz.</p>
 
-<p><strong>“Package Control: Install Package”</strong>ı seçtikten sonra biraz bekliyoruz ve tüm paketler listeleniyor. Buradan istediğimiz paketi arayıp/seçip <strong>“Enter”</strong> ile yükleyebilirsiniz.</p>
+<p><strong>“Package Control: Install Package”</strong>ı seçiyoruz ve tüm paketler listeleniyor. Buradan istediğimiz paketi arayıp/seçip <strong>“Enter”</strong> ile yükleyebilirsiniz.</p>
 
 <p><strong>İpucu:</strong> <strong>“Cmd + Shift + P”</strong> tuş kombinasyonu ile Sublime Text’in tüm özelliklerine kısayoldan ulaşabilirsiniz.</p>
 
 <h2>Paketler (Plug-in’ler / Eklentiler)</h2>
 
-<p>Paketler, Sublime Text’in en güzel özelliklerinden biri. Aşağıda benim kullandığım ve tavsiye ettiğim paketleri göreceksiniz. Tüm paketleri detaylı olarak <a href="https://sublime.wbond.net/">Package Control’ün yazarına ait siteden</a> inceleyebilirsiniz.</p>
+<p>Paketler, Sublime Text’in en güzel özelliklerinden biri. Aşağıda benim kullandığım ve tavsiye ettiğim paketleri göreceksiniz. Tüm paketleri detaylı olarak <a href="https://packagecontrol.io/">Package Control</a> sitesinden inceleyebilirsiniz.</p>
 
 <ul>
     <li><strong><a href="https://sublime.wbond.net/packages/Git">Git</a></strong> - Git özelliklerini Sublime üzerinde kullanmanıza imkan verir.</li>
@@ -211,7 +203,6 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
     <li><strong><a href="https://sublime.wbond.net/packages/Emmet">Emmet</a></strong> - HTML/CSS snippet’larını ekler. Detaylar için <a href="http://docs.emmet.io/cheat-sheet/">emmet websitesine</a> bakabilirsiniz.</li>
     <li><strong><a href="https://sublime.wbond.net/packages/AngularJS%20Snippets">AngularJS Snippets</a></strong> - Angular.js snippet’larını ekler.</li>
     <li><strong><a href="https://sublime.wbond.net/packages/Nodejs">Nodejs</a></strong> - Node.js snippet’larını ekler. “fs” yazdıktan sonra “Ctrl + Space” tuş kombinasyonu ile kullanılabilenecek methodlar görüntülenir.</li>
-    <li><strong><a href="https://sublime.wbond.net/packages/jQuery">jQuery</a></strong> - jQuery snippet’larını ekler.</li>
 </ul>
 
 <h3>Temalar</h3>
@@ -558,5 +549,3 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 <p>Görüldüğü üzere editör tartışmalarında Sublime Text’in yeri de oldukça sağlam. Tabii ki Sublime Text’in özellikleri burada saydıklarımızdan ibaret değil, değinmediğimiz özellikleri de mevcut.</p>
 
 <p>Yazıda değinmemiz gerektiğini düşündüğünüz özellikleri yorum bölümünde paylaşırsanız, faydalı bir doküman oluşturma yolunda güzel bir adım atmış olabiliriz.</p>
-
-<p>Not: Bu makale <a href="http://labs.sahibinden.com/yazi/sublime-texti-etkin-kullanmak/">labs.sahibinden.com</a> üzerinde de yayımlanmıştır.</p>
