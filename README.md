@@ -9,7 +9,6 @@ Sercan Eraslan Blog
 ## Install
 
 * `./grabs install`
-* `bower install`
 
 ## License
 MIT License.
