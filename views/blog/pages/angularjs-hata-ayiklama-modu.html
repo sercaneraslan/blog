@@ -1,0 +1,17 @@
+<h1 ng-head ng-title>AngularJS - Hata Ayıklama Modu</h1><span class="time">3O Mart 2015</span> <img alt="Angular" src="/img/static/posts/angular/angular.jpg"><p ng-head ng-auto-description>AngularJS kullanılan bir projenin derlenmiş HTML kodlarını incelediğinizde hata ayıklama (debug) için eklenmiş bilgileri görürsünüz. Bu bilgiler elemanlara class olarak eklenir.</p><p>Mesela normalde kodunuz aşağıdaki gibiyken;</p><pre>
+    <code class="language-markup" prism>
+&lt;p&gt;Merhaba <span>{</span>{ name <span>}</span>}!&lt;/p&gt;
+    </code>
+</pre><p>derlenmiş hali aşağıdaki gibi olacaktır.</p><pre>
+    <code class="language-markup" prism>
+&lt;p class="ng-binding"&gt;Merhaba Sercan!&lt;/p&gt;
+    </code>
+</pre><p>Benzer şekilde <strong>ng-bind</strong> ya da <strong>ng-bind-html</strong> directive'leri de bilgilendirme ekleyecek. Ayrıca AngularJS kodu derlendiğinde yeni bir scope yaratılır ve yaratılan scope'un tipine göre view'a / HTML'e "ng-scope" ya da "ng-isolated-scope" class'ı eklenir.</p><p>AngularJS 1.3 versiyonu ile birlikte <strong>$compileProvider</strong>'a <strong>debugInfoEnabled()</strong> metodu eklendi. Bu metoda <strong>false</strong> parametresi geçerek bilgilendirmeleri kapatabilir ve aşağıdaki bir satır kod ile canlı ortama aldığınız kodlarınızın daha hızlı çalışmasını sağlayabilirsiniz. Yani hata ayıklama modunu kapatmak size performans kazandırır.</p><pre>
+    <code class="language-javascript" prism>
+$compileProvider.debugInfoEnabled(false);
+    </code>
+</pre><p>Aşağıda hata ayıklama modunun kapalı ve açık olduğu durumlara ait 2 örnek bulunmaktadır. Tarayıcı üzerinden teftiş (inspect) ederek normalde hangi bilgilendirmeler yapılıyor ve hata ayıklama modu kapatıldığında hangi bilgilendirmeler yapılmıyor inceleyebilirsiniz.</p><h3>Hata Ayıklama Modu Açık (Varsayılan)</h3><div codepen cp-user="sercaneraslan" cp-slug-hash="XJGmVN" cp-height="250"></div><h3>Hata Ayıklama Modu Kapalı (Önerilir)</h3><div codepen cp-user="sercaneraslan" cp-slug-hash="JozYZr" cp-height="250"></div><h2>Peki, Canlı Ortamda Hata Ayıklamak İstersek?</h2><p>Telaşlanmayın, bunun güzel ve kolay bir yolu var. <strong>angular</strong> objesine <strong>reloadWithDebugInfo()</strong> adında bir metod eklendi. Canlı ortamda sayfa açıkken tarayıcının <strong>console</strong> bölümüne aşağıdaki kodu yazarsanız sayfanız hata ayıklama modu açık olarak derlenecektir. Havalı değil mi?</p><pre>
+    <code class="language-javascript" prism>
+angular.reloadWithDebugInfo();
+    </code>
+</pre>

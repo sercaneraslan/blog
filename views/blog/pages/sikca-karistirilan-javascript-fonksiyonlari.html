@@ -1,0 +1,43 @@
+<h1 ng-head ng-title>Sıkça Karıştırılan JavaScript Fonksiyonları</h1><span class="time">10 Ağustos 2020</span> <img alt="Galaksi" src="/img/static/posts/functions/galaxy.png"><p ng-head ng-auto-description>Birçok JavaScript geliştiricisi JavaScript’in bazı gömülü (built-in) fonksiyonlarını binlerce kez kullanmış olsa dahi zaman zaman bu fonksiyonları birbirleriyle karıştırabiliyor. Bu makalede isimleri ve ne iş yaptıklarını “ezberlemeden” alternatif yöntemlerle “Aklımızda nasıl tutarız?” sorusuna cevaplar arayacağız.</p><p>Öncelikle “İnsanlar nasıl öğrenir ve nasıl hatırlar?” bu konuya bir göz atalım.</p><p>İnsanlar öğrenme işini kıyas yöntemiyle yaparlar. Kıyas yöntemi önceden öğrenilen bilgiler ile yeni öğrenilen bilgileri ilişkilendirerek yapılır. Bu ilişkilendirme ne kadar güçlü olursa hatırlamak o kadar kolay olur. Dolayısıyla ilişkilendirmeyi güçlendirmeye odaklanmalıyız.</p><p>Başlamadan önce, bulacağınız cevapların deneysel olduğunu belirtmek isterim :)</p><h2>map(), filter(), reduce()</h2><p>Fonksiyonları hatırlayalım;</p><pre>
+    <code class="language-javascript" prism>
+// Her bir elemanı değiştirir.
+[1, 3, 5].map(sayi => sayi * 2); // [2, 6, 10]
+
+// Tüm elemanları filtreler.
+[1, 3, 5].filter(sayi => sayi > 3); // [5]
+
+// Tüm elemanlardan yeni bir eleman üretir.
+[1, 3, 5].reduce((toplam, sayi) => toplam + sayi); // 9
+    </code>
+</pre><p>Aklımızda nasıl tutarız?</p><p>Fonksiyon isimlerine benzer kelimeler bularak ne iş yaptıklarını hatırlamaya çalışalım.</p><ul><li><strong>map()</strong> fonksiyonunu hatırlamak için <strong>ma</strong>ni<strong>p</strong>üle kelimesi bizim için harika bir seçenek. <strong>map()</strong> fonksiyonunu gördüğümüz anda <strong>ma</strong>ni<strong>p</strong>üle kelimesini hatırlarsak <strong>map()</strong> fonksiyonunun elemanları <strong>ma</strong>ni<strong>p</strong>üle ettiğini kolayca hatırlayabiliriz.</li><li><strong>filter()</strong> fonksiyonunun elemanları <strong>filtre</strong>lediğini isminden dolayı zaten hemen hatırlıyoruz :)</li><li>redu<strong>ce</strong>() fonksiyonun son 2 harfinden “<strong>C</strong>reate <strong>E</strong>lement” çıkarımını yaparsak <strong>map()</strong> fonksiyonundan farklı olarak yeni bir eleman ürettiğini hatırlayabiliriz.</li></ul><h2>map(), forEach()</h2><p>Fonksiyonları hatırlayalım;</p><p><strong>map()</strong></p><ul><li>Verilen array’den yeni bir array üretir.</li><li>Performans olarak daha hızlıdır.</li><li>Chaining yaparak reduce() ve filter() ile birleştirilebilir.</li></ul><p><strong>forEach()</strong></p><ul><li>Verilen array üzerinde çalışır.</li><li>JavaScript’in for ifadesine benzetilebilir.</li></ul><p>Aklımızda nasıl tutarız?</p><ul><li><strong>for</strong>Each() fonksiyonunu gördüğümüzde aklımıza <strong>for</strong> kelimesini getirebiliriz. <strong>for</strong> ifadesinin basit bir şekilde çalıştığını bildiğimiz için yeni bir array üretmediğini var olan array üzerinde çalıştığını hatırlayabiliriz.</li><li>ma<strong>p</strong>() fonksiyonunun son harfini <strong>performans</strong> kelimesi ile eşleştirirsek forEach’e göre daha performanslı olduğunu hatırlayabiliriz. forEach() fonksiyonun yeni array üretmediğini hatırladığımızda ma<strong>p</strong>() fonksiyonunun yeni bir array ürettiğini hatırlayabiliriz.</li></ul><h2>ceil(), floor(), round()</h2><p>Fonksiyonları hatırlayalım;</p><pre>
+    <code class="language-javascript" prism>
+// Sayıyı yukarı yuvarlar.
+Math.ceil(3.75); // 4
+
+// Sayıyı aşağı yuvarlar.
+Math.floor(3.75); // 3
+
+// .50 ve üzerini yukarı .49 ve altını aşağı yuvarlar.
+Math.round(3.50); // 4
+Math.round(3.49); // 3
+    </code>
+</pre><p>Aklımızda nasıl tutarız?</p><ul><li>Alfabetik olarak fonksiyonları zihnimizde sıraladığımızda, alfabetik sırada <strong>en yukarıda</strong> olan <strong>ceil()</strong> fonksiyonun sayıyı <strong>yukarı</strong> yuvarladığını rahatça hatırlayabiliriz.</li><li>Yukarı yuvarlayan fonksiyonun hemen <strong>aşağısında</strong> yer alan <strong>floor()</strong> fonksiyonun da <strong>aşağı</strong> yuvarladığını rahatça hatırlayabiliriz.</li><li><strong>round()</strong> fonksiyonu alfabetik sırada diğer <strong>2</strong> fonksiyona oldukça uzak olduğunu farkettiğimizde <strong>2</strong> fonksiyonunda özelliklerine sahip olduğunu hatırlayabiliriz.</li></ul><h2>slice(), splice()</h2><p>Fonksiyonları hatırlayalım;</p><pre>
+    <code class="language-javascript" prism>
+// Array elemanlarını dilimler.
+['cat', 'dog', 'bird'].slice(2); // ['bird']
+['cat', 'dog', 'bird'].slice(0, 2); // ['cat', 'dog']
+
+// Array'e yeni eleman ekleyebilir veya değiştirebilir.
+let pets = ['cat', 'dog'];
+pets.splice(1, 0, 'bird'); // ["cat", "bird", "dog"]
+pets.splice(1, 1, 'duck'); // ["cat", "duck", "dog"]
+    </code>
+</pre><p>Aklımızda nasıl tutarız?</p><ul><li>s<strong>lice</strong>() fonksiyonunun son 4 harfini <strong>lime</strong> kelimesine benzetirsek array elemanlarını <strong>lime lime</strong> ettiğini hatırlayabiliriz :)</li><li>s<strong>p</strong>lice() fonksiyonunu hatırlamak için <strong>lime</strong> kelimesinden farklı olarak <strong>p</strong> harfine odaklanıp <strong>put</strong> kelimesi ile eşleştirebiliriz, bu sayede array’e ekleme yaptığını hatırlayabiliriz.</li></ul><h2>find(), filter()</h2><p>Fonksiyonları hatırlayalım;</p><pre>
+    <code class="language-javascript" prism>
+// Tek eşleşen eleman bulur.
+[1,2,3].find(el => el > 1); // 2
+
+// Tüm eşleşen elemanları bulur.
+[1,2,3].filter(el => el > 1); // [2, 3]
+    </code>
+</pre><p>Aklımızda nasıl tutarız?</p><p>Bu fonksiyonları hatırlamak için heceleme yöntemini deneyeceğiz. Eğer heceleme yöntemini kullanırsak <strong>tek</strong> heceli olan <strong>find()</strong> fonksiyonun <strong>tek</strong> eleman döndürdüğünü, <strong>iki</strong> heceli olan <strong>filter()</strong> fonksiyonun ise <strong>iki</strong> veya daha fazla eleman döndürdüğünü hatırlayabiliriz.</p><h3>Kapanış</h3><p>Umarım deneysel olan ilişkilendirme yöntemi işinize yaramıştır :) Eğer yaramadıysa ve/veya daha akılda kalıcı yöntemleriniz varsa yorumlarınızı okumak için heyecanla bekliyorum :)</p><p>Sevgiler.</p>
