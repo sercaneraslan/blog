@@ -26,6 +26,7 @@
     "load-grunt-tasks": "5.1.0"
   },
   "dependencies": {
-    "bower": "^1.8.14"
+    "bower": "^1.8.14",
+    "gifsicle": "^7.0.1"
   }
 }
