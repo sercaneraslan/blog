@@ -13,7 +13,7 @@
     "grunt-contrib-connect": "3.0.0",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-htmlmin": "3.1.0",
-    "grunt-contrib-imagemin": "^2.0.1",
+    "grunt-contrib-imagemin": "4.0.0",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-contrib-stylus": "1.2.0",
     "grunt-contrib-uglify": "5.0.0",
@@ -26,7 +26,6 @@
     "load-grunt-tasks": "5.1.0"
   },
   "dependencies": {
-    "bower": "^1.8.14",
-    "gifsicle": "^7.0.1"
+    "bower": "^1.8.14"
   }
 }
