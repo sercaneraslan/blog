@@ -6,6 +6,11 @@ Sercan Eraslan Blog
 
 <a href="http://blog.sercaneraslan.com">Personel Blog</a>. (This Blog is using <a href="https://github.com/sercaneraslan/grabs">Grabs</a>)
 
+## Install
+
+* `./grabs install`
+* `bower install`
+
 ## License
 MIT License.
 
